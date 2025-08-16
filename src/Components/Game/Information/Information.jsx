@@ -1,17 +1,25 @@
-import React from 'react';
+import { store } from '../../../store.js';
+import { useState, useEffect } from 'react';
+import styles from './Information.module.css';
 
-import InformationLayout from './InformationLayout.jsx';
+export default function InformationLayout() {
+  const state = store.getState();
+  const [text, setText] = useState(`Ход: ${state.currentPlayer}`);
 
-export default function Information({ gameEnd, draw, currentPlayer }) {
-	return (
-		<InformationLayout
-			text={
-				draw
-					? 'Ничья'
-					: gameEnd
-						? `Победитель: ${currentPlayer}`
-						: `Ход: ${currentPlayer}`
-			}
-		/>
-	);
+  useEffect(() => {
+    const unsubscribe = store.subscribe(() => {
+      const { gameEnd, draw, currentPlayer } = store.getState();
+      setText(
+        gameEnd
+          ? `Победитель: ${currentPlayer}`
+          : draw
+          ? 'Ничья'
+          : `Ход: ${currentPlayer}`
+      );
+    });
+
+    return unsubscribe;
+  }, []);
+
+  return <h1 className={styles.title}>{text}</h1>;
 }
