@@ -18,7 +18,7 @@ export default function InformationLayout() {
       );
     });
 
-    return unsubscribe;
+    return () => unsubscribe();
   }, []);
 
   return <h1 className={styles.title}>{text}</h1>;

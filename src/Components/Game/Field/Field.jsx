@@ -11,7 +11,7 @@ export default function FieldLayout() {
       setFields(store.getState().fields);
     });
 
-    return unsubscribe;
+    return () => unsubscribe();
   }, []);
 
   const putMove = (i) => {
