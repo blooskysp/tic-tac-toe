@@ -8,15 +8,17 @@
 		"build": "vite build",
 		"lint": "eslint tic-tac-toe",
 		"preview": "vite preview",
-		"prettier": "npx prettier --write tic-tac-toe"
+		"prettier": "npx prettier --write ./src"
 	},
 	"dependencies": {
+		"@tailwindcss/vite": "^4.1.12",
 		"prettier": "^3.6.0",
 		"react": "^19.1.0",
 		"react-dom": "^19.1.0",
 		"react-redux": "^9.2.0",
 		"redux": "^5.0.1",
-		"redux-thunk": "^3.1.0"
+		"redux-thunk": "^3.1.0",
+		"tailwindcss": "^4.1.12"
 	},
 	"devDependencies": {
 		"@eslint/js": "^9.25.0",

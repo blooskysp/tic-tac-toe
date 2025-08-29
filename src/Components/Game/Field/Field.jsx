@@ -1,29 +1,42 @@
-import styles from "./Field.module.css";
-import {useDispatch, useSelector} from "react-redux";
-import {setField} from "../../../actions/index.js";
-import {selectFields} from "../../../selectors/select-fields.js";
-import {selectDraw} from "../../../selectors/select-draw.js";
-import {selectGameEnd} from "../../../selectors/select-gameEnd.js";
+import { connect } from 'react-redux';
+import { Component } from 'react';
 
-export default function FieldLayout() {
-	const fields = useSelector(selectFields);
-	const draw = useSelector(selectDraw);
-	const gameEnd = useSelector(selectGameEnd);
-  const dispatch = useDispatch();
+class FieldContainer extends Component {
+	constructor(props) {
+		super(props);
+	}
 
-  const putMove = (i) => {
+	putMove(i) {
+		const { draw, gameEnd, dispatch } = this.props;
+
 		if (draw || gameEnd) return;
 
-    dispatch(setField(i));
-  };
+		dispatch({ type: 'SET_FIELD', payload: i });
+	}
 
-  return (
-    <div className={styles.board}>
-      {fields.map((item, i) => (
-        <button key={i} onClick={() => putMove(i)} className={styles.field}>
-          {item}
-        </button>
-      ))}
-    </div>
-  );
+	render() {
+		return (
+			<div className="w-[300px] flex flex-wrap">
+				{this.props.fields.map((item, i) => (
+					<button
+						key={i}
+						onClick={() => this.putMove(i)}
+						className="w-[100px] h-[100px] text-[60px] text-center items-center
+						bg-transparent border-1 border-solid border-black transition-all
+						duration-200 ease hover:bg-[#e7e7e7] cursor-pointer"
+					>
+						{item}
+					</button>
+				))}
+			</div>
+		);
+	}
 }
+
+const mapStateToProps = (state) => ({
+	fields: state.fields,
+	draw: state.draw,
+	gameEnd: state.gameEnd,
+});
+
+export const Field = connect(mapStateToProps)(FieldContainer);

@@ -1,3 +1,3 @@
 export const restartGame = {
-	type: 'RESTART_GAME'
+	type: 'RESTART_GAME',
 };

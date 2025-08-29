@@ -1,5 +1,5 @@
-import { createStore, compose } from 'redux'
-import {reducer} from "./reducers/reducer.js";
+import { createStore, compose } from 'redux';
+import { reducer } from './reducers/reducer.js';
 
 const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
 
